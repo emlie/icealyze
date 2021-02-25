@@ -6,6 +6,7 @@ let rinkNameH2 = document.getElementById('rinkNameH2');
 let avgTemp = document.getElementById('avgTemp');
 let avgHumidity = document.getElementById('avgHumidity');
 let avgQuality= document.getElementById('avgQuality');
+let rinkMenu = document.getElementsByClassName('rink-menu')[0];
 let legend = document.getElementsByClassName('legend')[0];
 
 let rinkData = [
@@ -61,7 +62,7 @@ function loadData() {
   });
 }
 
-// Show legend data
+// Show legend
 function loadLegend() {
   legendData.forEach(data => {
     legend.innerHTML += `
@@ -70,6 +71,13 @@ function loadLegend() {
       <div class="bar" style="background:${data.mid}"></div>
       <div class="bar bottom-bar" style="background:${data.low}"></div>
       <h3 class="center">${data.name}</h3>
+    </div>
+    `;
+
+    rinkMenu.innerHTML += `
+    <div class="">
+      <input type="checkbox" name="inp-${data.name}" value="">
+      <label for="inp-${data.name}" class="label">${data.name}</label>
     </div>
     `;
   });

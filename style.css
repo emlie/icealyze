@@ -400,6 +400,32 @@ h3 {
   border: 0 solid green;
 }
 
+.rink-menu {
+  width: 33%;
+  height: auto;
+
+  margin: 0 33%;
+
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: space-around;
+}
+
+.label {
+  margin-left: calc(var(--space)*1);
+
+  font-family: var(--main-font);
+  font-size: calc(var(--space)*1.25);
+  font-weight: var(--regular);
+
+  color: var(--gray);
+
+  text-align: left;
+  text-transform: capitalize;
+}
+
 .rink {
   width: 100%;
   height: auto;
@@ -502,13 +528,13 @@ h3 {
 }
 
 .start-31 {
-  grid-area: 3 / 1 / span 3 / span 8;
+  grid-area: 3 / 1 / span 4 / span 8;
 
   border: 0 solid cyan;
 }
 
-.start-61 {
-  grid-area: 6 / 1 / span 3 / span 3;
+.start-71 {
+  grid-area: 7 / 1 / span 3 / span 3;
 
   border: 0 solid cyan;
 }
