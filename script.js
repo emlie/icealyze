@@ -6,13 +6,7 @@ let rinkNameH2 = document.getElementById('rinkNameH2');
 let avgTemp = document.getElementById('avgTemp');
 let avgHumidity = document.getElementById('avgHumidity');
 let avgQuality= document.getElementById('avgQuality');
-
-// Get and define data
-let rinkNames = [
-  'A',
-  'B',
-  'C'
-];
+let legend = document.getElementsByClassName('legend')[0];
 
 let rinkData = [
   {
@@ -35,6 +29,27 @@ let rinkData = [
   },
 ];
 
+const legendData = [
+  {
+    name: 'temperature',
+    low: 'var(--main-green)',
+    mid: 'var(--main-yellow)',
+    high: 'var(--main-red)',
+  },
+  {
+    name: 'humidity',
+    low: 'var(--main-green)',
+    mid: 'var(--main-yellow)',
+    high: 'var(--main-red)',
+  },
+  {
+    name: 'quality',
+    low: 'var(--main-green)',
+    mid: 'var(--main-yellow)',
+    high: 'var(--main-red)',
+  },
+];
+
 // Show rink names in the select menu
 function loadData() {
   rinkData.forEach(rink => {
@@ -42,6 +57,20 @@ function loadData() {
     <option value="${rink.name}">
       Rink ${rink.name}
     </option>
+    `;
+  });
+}
+
+// Show legend data
+function loadLegend() {
+  legendData.forEach(data => {
+    legend.innerHTML += `
+    <div class="legend-data">
+      <div class="bar top-bar" style="background:${data.high}"></div>
+      <div class="bar" style="background:${data.mid}"></div>
+      <div class="bar bottom-bar" style="background:${data.low}"></div>
+      <h3 class="center">${data.name}</h3>
+    </div>
     `;
   });
 }
@@ -74,4 +103,5 @@ function selectRink(event) {
 
 // Run functions
 loadData();
+loadLegend();
 selRink.onclick = selectRink;
