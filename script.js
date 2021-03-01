@@ -2,6 +2,7 @@
 
 // Get HTML elements
 let selRink = document.getElementById('selectRink');
+let thisDate = document.getElementById('thisDate');
 let rinkNameH2 = document.getElementById('rinkNameH2');
 let avgTemp = document.getElementById('avgTemp');
 let avgHumidity = document.getElementById('avgHumidity');
@@ -33,26 +34,48 @@ let rinkData = [
 const legendData = [
   {
     name: 'temperature',
-    low: 'var(--main-green)',
-    mid: 'var(--main-yellow)',
+    low: 'var(--main-blue)',
+    mid: 'var(--main-orange)',
     high: 'var(--main-red)',
   },
   {
     name: 'humidity',
-    low: 'var(--main-green)',
-    mid: 'var(--main-yellow)',
-    high: 'var(--main-red)',
+    low: 'var(--light-blue)',
+    mid: 'var(--medium-blue)',
+    high: 'var(--main-blue)',
   },
   {
     name: 'quality',
-    low: 'var(--main-green)',
-    mid: 'var(--main-yellow)',
-    high: 'var(--main-red)',
+    low: 'var(--dark-yellow)',
+    mid: 'var(--medium-yellow)',
+    high: 'var(--main-yellow)',
   },
 ];
 
-// Show rink names in the select menu
+let d = new Date();
+let date = d.getDate();
+let month = d.getMonth();
+let year = d.getFullYear();
+const months = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december'
+];
+
+// Load all data
 function loadData() {
+  let monthName = months[0];
+  // thisDate.innerHTML = `${month} ${date}, ${year}`;
+
   rinkData.forEach(rink => {
     selRink.innerHTML += `
     <option value="${rink.name}">

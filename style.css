@@ -5,11 +5,15 @@
     /* colors */
     --background-color: #F4F7FC;
     --main-blue: #0058FF;
+    --medium-blue: #78AAFA;
     --light-blue: #D9E5F8;
     --dark-blue: #131523;
     --main-red: #F0142F;
     --main-green: #3DD598;
     --main-yellow: #FFC700;
+    --medium-yellow: #D1A300;
+    --dark-yellow: #584502;
+    --main-orange: #FF9300;
     --gray: #7E84A3;
     --black: #000;
     --white: #FFF;
@@ -257,6 +261,13 @@ h1 {
   text-transform: capitalize;
 }
 
+.h1 {
+  /* row-start | col-start | row-end | col-end */
+  grid-area: 1 / 1 / span 1 / span 3;
+
+  border: 0 solid cyan;
+}
+
 h2 {
   font-family: var(--main-font);
   font-size: calc(var(--space)*2);
@@ -283,11 +294,51 @@ h3 {
   text-transform: capitalize;
 }
 
-.h1 {
-  /* row-start | col-start | row-end | col-end */
-  grid-area: 1 / 1 / span 1 / span 3;
+.date {
+  grid-area: 1 / 8 / span 1 / span 1;
 
-  border: 0 solid cyan;
+  width: 75%;
+  height: 50%;
+  margin: 8% 0 0 25%;
+
+  padding: calc(var(--space)*1)
+           calc(var(--space)*1.5);
+
+  border: none;
+  border-radius: calc(var(--space)*0.5);
+  box-shadow: var(--smooth-light-shadow);
+  background: var(--white);
+
+  font-family: var(--main-font);
+  font-size: calc(var(--space)*1.25);
+  font-weight: var(--regular);
+
+  color: var(--gray);
+
+  text-align: left;
+  text-transform: capitalize;
+
+  display: flex;
+  flex-flow: row;
+  align-items: space-between;
+  align-content: flex-start;
+  justify-content: space-between;
+}
+
+.date i {
+  margin-top: 3%;
+
+  font-size: inherit;
+
+  color: inherit;
+}
+
+.date span {
+  /* margin-top: -4%; */
+
+  font-size: calc(var(--space)*1.25);
+
+  color: inherit;
 }
 
 .small-card {
