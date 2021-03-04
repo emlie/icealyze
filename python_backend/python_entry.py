@@ -55,5 +55,5 @@ sensorA.oppdater_sensordata(temperatur=40, luftfuktighet=51)
 
 kampA = Kamp(bane_navn='Rink A')
 kamp_id = kampA.hent_kamp_id()
-# kampA.lagre_bilde(fil_plassering='plassering til bilde...')
+kampA.lagre_bilde(fil_plassering='./test.jpg')
 print(kamp_id)
