@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>icealyze</title>
+  </head>
+  <body>
+
+    <header>
+      <a href="#">icealyze</a>
+      <div class="selectdiv">
+        <select id="selectRink" class="" name="">
+          <option value="0">Choose Rink</option>
+        </select>
+      </div>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html"><i class="fas fa-home"></i>home</a></li>
+        <li><a href="analytics.html"><i class="fas fa-chart-bar"></i>analytics</a></li>
+        <li><a href="info.html"><i class="fas fa-info-circle"></i>information</a></li>
+        <li><a href="help.html"><i class="fas fa-question-circle"></i>help center</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="h1">
+        <h1>overview</h1>
+      </div>
+
+      <div class="date">
+        <i class="fas fa-calendar-day"></i><span id="thisDate">Feb 28, 2021</span>
+      </div>
+
+      <div class="small-card start-23">
+        <div class="small-card-text">
+          <div class="">
+            <h3>avg. temperature</h3>
+          </div>
+          <div class="">
+            <p id="avgTemp" class="big-data">X°c</p>
+            <p class="big-data-caption"><span class="negative">1.3%<span><i class="fas fa-arrow-down negative"></i> than last session</p>
+          </div>
+        </div>
+        <div class="small-card-graph">
+          <!-- graph -->
+          <img src="img/graph-green.svg" alt="placeholder">
+        </div>
+      </div>
+
+      <div class="small-card start-25">
+        <div class="small-card-text">
+          <div class="">
+            <h3>avg. humidity</h3>
+          </div>
+          <div class="">
+            <p id="avgHumidity" class="big-data">Y%</p>
+            <p class="big-data-caption"><span class="positive">1.3%<span><i class="fas fa-arrow-up positive"></i> than last session</p>
+          </div>
+        </div>
+        <div class="small-card-graph">
+          <!-- graph -->
+          <img src="img/graph-blue.svg" alt="placeholder">
+        </div>
+      </div>
+
+      <div class="small-card start-27">
+        <div class="small-card-text">
+          <div class="">
+            <h3>overall quality</h3>
+          </div>
+          <div class="">
+            <p id="avgQuality" class="big-data">Z/6</p>
+            <p class="big-data-caption"><span class="negative">1.3%<span><i class="fas fa-arrow-down negative"></i> than last session</p>
+          </div>
+        </div>
+        <div class="small-card-graph">
+          <!-- graph -->
+          <img src="img/graph-yellow.svg" alt="placeholder">
+        </div>
+      </div>
+
+      <div class="full-card start-31">
+        <div class="h2">
+          <h2 id="rinkNameH2">rink unknown</h2>
+        </div>
+        <div class="rink-menu">
+          <!-- insert legend checkboxes -->
+        </div>
+        <div class="rink">
+          <img src="img/house.svg" alt="house">
+          <img src="img/house.svg" alt="house">
+        </div>
+      </div>
+
+      <div class="small-medium-card start-71">
+        <div class="h2">
+          <h2>legend</h2>
+        </div>
+        <div class="legend">
+          <!-- insert legend color codes -->
+        </div>
+      </div>
+
+    </main>
+
+  <script src="script.js"></script>
+  </body>
+</html>
