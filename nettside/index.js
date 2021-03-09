@@ -1,13 +1,13 @@
-const app = require('express')()
+const express = require('express');
+
+const app = express();
+
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const bodyParser = require('body-parser')
 const Bane = require('./Bane')
 const port = 3000
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
@@ -22,10 +22,18 @@ io.on('connection', async (socket) => {
     socket.emit('nytt bilde', {bilde: nytt_bilde.iskvalitet_bilde})
   })
 
+  BaneA.status_stream((ny_status) => {
+    socket.emit('status', ny_status)
+  })
+
   socket.on('kamp start', async (respons) => {
     console.log('Starter ny kamp..')
     
     await BaneA.start_kamp('En test kamp på bane A', respons.overkjor_kamp ?? false)
+  })
+
+  socket.on('hent kamp status', (_) => {
+    socket.emit('kamp status', BaneA.hent_kamp_status())
   })
 
   socket.on('kamp avslutt', async (respons) => {

@@ -38,6 +38,9 @@ class Bane {
         var status = await status_cursor.next()
         this.kamp_aktiv = status.kamp_aktiv
         this.kamp_id = status.kamp_id
+        this.kamp_aktiv = status.kamp_aktiv
+        this.temperatur = status.temperatur;
+        this.luftfuktighet = status.luftfuktighet;
 
         var kamp_cursor = await r.db(db_navn).table(kamper_tabell_navn).orderBy(r.desc('tidsstempel')).filter({id: this.kamp_id}).limit(1).run(this.conn);
         var kamp = await kamp_cursor.next()
@@ -94,6 +97,22 @@ class Bane {
         this.kamp_aktiv = false;
 
         console.log(`${this.kamp_navn}: Kamp avsluttet`)
+    }
+
+    hent_kamp_status() {
+        return {
+            kamp_navn: this.kamp_navn,
+            kamp_aktiv: this.kamp_aktiv,
+            temperatur: this.temperatur,
+            luftfuktighet: this.luftfuktighet,
+        }
+    }
+
+    async status_stream(callback) {
+        var status_stream_cursor = await r.db(db_navn).table(status_tabell_navn).filter({bane: this.bane_navn}).changes().run(this.conn)
+        status_stream_cursor.each((err, row) => {
+            callback(row.new_val)
+        })
     }
 
     async bilde_stream(callback) {
