@@ -109,13 +109,17 @@ class Bane {
     }
 
     async status_stream(callback) {
+        console.log(`${this.kamp_navn}: Starter status stream`)
         var status_stream_cursor = await r.db(db_navn).table(status_tabell_navn).filter({bane: this.bane_navn}).changes().run(this.conn)
         status_stream_cursor.each((err, row) => {
+            // hente kamp navn
+            
             callback(row.new_val)
         })
     }
 
     async bilde_stream(callback) {
+        console.log(`${this.kamp_navn}: Starter bilde stream`)
         var bilde_stream_cursor = await r.db(db_navn).table(banekvalitet_tabell_navn).filter({kamp_id: this.kamp_id}).changes().run(this.conn)
         bilde_stream_cursor.each((err, row) => {
             callback(row.new_val)
