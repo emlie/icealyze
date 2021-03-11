@@ -26,6 +26,10 @@ io.on('connection', async (socket) => {
     socket.emit('status', ny_status)
   })
 
+  BaneA.status_stream((ny_status) => {
+    socket.emit('kamp status', ny_status)
+  })
+
   socket.on('kamp start', async (respons) => {
     console.log('Starter ny kamp..')
     
