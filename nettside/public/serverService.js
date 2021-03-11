@@ -66,9 +66,9 @@ const main = () => {
 
     socket.on('kamp status', (res) => {
         console.log(res);
-        temperatur.innerHTML = res.temperatur;
-        luftfuktighet.innerHTML = res.luftfuktighet;
-        kamp_navn.innerHTML = res.kamp_navn;
+        temperatur.innerHTML = res.temperatur ?? temperatur.innerHTML;
+        luftfuktighet.innerHTML = res.luftfuktighet ?? luftfuktighet.innerHTML;
+        kamp_navn.innerHTML = res.kamp_navn ?? kamp_navn.innerHTML;
 
         if (res.kamp_aktiv === true) {
             test_status.style.backgroundColor = 'green';
