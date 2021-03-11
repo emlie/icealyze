@@ -113,9 +113,14 @@ class Bane {
         var status_stream_cursor = await r.db(db_navn).table(status_tabell_navn).filter({bane: this.bane_navn}).changes().run(this.conn)
         status_stream_cursor.each((err, row) => {
             // hente kamp navn
-            
+
             callback(row.new_val)
         })
+    }
+
+    async nytt_bilde(callback) {
+        var res = await r.db(db_navn).table(banekvalitet_tabell_navn).orderBy(r.desc('tidsstempel')).limit(1).run(this.conn)
+        return callback(res[0])
     }
 
     async bilde_stream(callback) {

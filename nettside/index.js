@@ -18,6 +18,10 @@ io.on('connection', async (socket) => {
   var BaneA = new Bane(bane_navn='Rink A')
   await BaneA.init()
 
+  BaneA.nytt_bilde((nytt_bilde) => {
+    socket.emit('nytt bilde', {bilde: nytt_bilde.iskvalitet_bilde})
+  });
+
   BaneA.bilde_stream((nytt_bilde) => {
     socket.emit('nytt bilde', {bilde: nytt_bilde.iskvalitet_bilde})
   })
