@@ -99,13 +99,13 @@ class Bane {
         console.log(`${this.kamp_navn}: Kamp avsluttet`)
     }
 
-    hent_kamp_status() {
-        return {
+    hent_kamp_status(callback) {
+        callback({
             kamp_navn: this.kamp_navn,
             kamp_aktiv: this.kamp_aktiv,
             temperatur: this.temperatur,
             luftfuktighet: this.luftfuktighet,
-        }
+        })
     }
 
     async status_stream(callback) {

@@ -34,14 +34,14 @@ io.on('connection', async (socket) => {
     socket.emit('kamp status', ny_status)
   })
 
+  BaneA.hent_kamp_status((ny_status) => {
+    socket.emit('kamp status', ny_status)
+  })
+
   socket.on('kamp start', async (respons) => {
     console.log('Starter ny kamp..')
     
     await BaneA.start_kamp('En test kamp på bane A', respons.overkjor_kamp ?? false)
-  })
-
-  socket.on('hent kamp status', (_) => {
-    socket.emit('kamp status', BaneA.hent_kamp_status())
   })
 
   socket.on('kamp avslutt', async (respons) => {
