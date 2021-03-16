@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,18 +9,123 @@
 </head>
 <link rel="stylesheet" href="style.css">
 <script src="/socket.io/socket.io.js"></script>
-<script src="helpers/encode.js" ></script>
+<script src="helpers/encode.js"></script>
 <script>var socket = io();</script>
+
 <body>
-    <button id="start">Start en ny kamp</button>
-    <button id="avslutt">Avslutt kampen</button>
-    <div>
-        <h1 id="kamp_navn"></h1>
-        <div><span id="temperatur" ></span> grader</div>
-        <div><span id="luftfuktighet" ></span> %</div>
-    </div>
-    <img id="img" />
-    <div id="test_status"></div>
+
+    <header>
+        <a href="#">icealyze</a>
+        <div class="selectdiv">
+            <select id="selectRink" class="" name="">
+                <option value="0">Choose Rink</option>
+            </select>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i>home</a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-bar"></i>analytics</a></li>
+            <li><a href="info.html"><i class="fas fa-info-circle"></i>information</a></li>
+            <li><a href="help.html"><i class="fas fa-question-circle"></i>help center</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="h1">
+            <h1>overview</h1>
+            <!-- Midlertidig knapper og data -->
+            <h2>Kampnavn: <span id="kamp_navn"></span></h2></span>
+            
+            <span id="test_status"></span><br/>
+            
+            <input type="text" placeholder="Navn på kamp" /> <!--Brukes foreløpig ikke-->
+            <button id="btnStart" >Start kamp</button>
+            <button id="btnAvslutt" >Avslutt kamp</button>
+        </div>
+
+        <div class="date">
+            <i class="fas fa-calendar-day"></i><span id="thisDate">Feb 28, 2021</span>
+        </div>
+
+        <div class="small-card start-23">
+            <div class="small-card-text">
+                <div class="">
+                    <h3>avg. temperature</h3>
+                </div>
+                <div class="">
+                    <p id="avgTemp" class="big-data"><span id="dataTemperatur"></span>°c</p>
+                    <p class="big-data-caption"><span class="negative">1.3%<span><i
+                                    class="fas fa-arrow-down negative"></i> than last session</p>
+                </div>
+            </div>
+            <div class="small-card-graph">
+                <!-- graph -->
+                <img src="img/graph-green.svg" alt="placeholder">
+            </div>
+        </div>
+
+        <div class="small-card start-25">
+            <div class="small-card-text">
+                <div class="">
+                    <h3>avg. humidity</h3>
+                </div>
+                <div class="">
+                    <p id="avgHumidity" class="big-data"><span id="dataLuftfuktighet" ></span>%</p>
+                    <p class="big-data-caption"><span class="positive">1.3%<span><i
+                                    class="fas fa-arrow-up positive"></i> than last session</p>
+                </div>
+            </div>
+            <div class="small-card-graph">
+                <!-- graph -->
+                <img src="img/graph-blue.svg" alt="placeholder">
+            </div>
+        </div>
+
+        <div class="small-card start-27">
+            <div class="small-card-text">
+                <div class="">
+                    <h3>overall quality</h3>
+                </div>
+                <div class="">
+                    <p id="avgQuality" class="big-data">Z/6</p>
+                    <p class="big-data-caption"><span class="negative">1.3%<span><i
+                                    class="fas fa-arrow-down negative"></i> than last session</p>
+                </div>
+            </div>
+            <div class="small-card-graph">
+                <!-- graph -->
+                <img src="img/graph-yellow.svg" alt="placeholder">
+            </div>
+        </div>
+
+        <div class="full-card start-31">
+            <div class="h2">
+                <h2 id="rinkNameH2">rink unknown</h2>
+            </div>
+            <div class="rink-menu">
+                <!-- insert legend checkboxes -->
+            </div>
+            <div class="rink">
+                <img src="img/house.svg" alt="house">
+                <img id="imgHeatmap" >
+                <img src="img/house.svg" alt="house">
+            </div>
+        </div>
+
+        <div class="small-medium-card start-71">
+            <div class="h2">
+                <h2>legend</h2>
+            </div>
+            <div class="legend">
+                <!-- insert legend color codes -->
+            </div>
+        </div>
+
+    </main>
+
 </body>
-<script src="./serverService.js" ></script>
+<script src="./serverService.js"></script>
+
 </html>

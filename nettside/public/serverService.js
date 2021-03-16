@@ -2,12 +2,12 @@
 const DEBUG_LOCAL = true;
 
 // html objekter som er relevante for programmet
-const startKnapp = document.getElementById('start');
-const avsluttKnapp = document.getElementById('avslutt');
+const startKnapp = document.getElementById('btnStart');
+const avsluttKnapp = document.getElementById('btnAvslutt');
 
-const bilde = document.getElementById('img');
-const temperatur = document.getElementById('temperatur');
-const luftfuktighet = document.getElementById('luftfuktighet');
+const bilde = document.getElementById('imgHeatmap');
+const temperatur = document.getElementById('dataTemperatur');
+const luftfuktighet = document.getElementById('dataLuftfuktighet');
 const test_status = document.getElementById('test_status');
 const kamp_navn = document.getElementById('kamp_navn');
 
@@ -22,7 +22,7 @@ const DEBUG_main = () => {
         test_status.style.backgroundColor = 'red';
     }
 
-    bilde.src = 'test.jpg'
+    bilde.src = 'img/eksempel.png'
     kamp_navn.innerHTML = 'Test kamp'
 
     temperatur.innerHTML = 20;
@@ -58,8 +58,7 @@ const main = () => {
         console.log(res);
         var bytes = new Uint8Array(res.bilde);
 
-        var image = document.getElementById('img');
-        image.src = 'data:image/png;base64,'+encode(bytes);
+        bilde.src = 'data:image/png;base64,'+encode(bytes);
     })
 
     socket.emit('hent kamp status', null)
