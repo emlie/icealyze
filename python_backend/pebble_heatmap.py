@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 # sette mappen python scriptet er i til arbeidsmappe. Kan dermed ha bilder i samme mappe som script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -10,7 +11,12 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 im = cv2.imread('./pebble_testbilder/2.png')
 im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
 
-block_size = 150
+block_size = 200
+
+# Metoder for å smoothe ut bilde
+interpolasjon_metoder = [None, 'none', 'nearest', 'bilinear', 'bicubic', 'spline16',
+           'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',
+           'catrom', 'gaussian', 'bessel', 'mitchell', 'sinc', 'lanczos']
 
 # antall blocks som skal lages, ut ifra bildens størrelse og block_size
 i_max = int(len(im)/block_size)
@@ -32,5 +38,5 @@ for i in range(i_max):
         color_avg[i][j] = color_calc
 
 # vise bilde
-plt.imshow(color_avg, interpolation='none')
+plt.imshow(color_avg, interpolation=interpolasjon_metoder[16], cmap=cm.jet_r) # sinc blur metode
 plt.show()
