@@ -1,5 +1,5 @@
 // om nettsiden skal kommunisere med database eller ikke
-const DEBUG_LOCAL = true;
+const DEBUG_LOCAL = false;
 
 // html objekter som er relevante for programmet
 const startKnapp = document.getElementById('btnStart');
