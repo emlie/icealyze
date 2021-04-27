@@ -3,6 +3,10 @@ import os
 from datetime import datetime
 from picamera import PiCamera
 from time import sleep
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 # Sette gjeldende mappe til scope
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -127,11 +131,9 @@ input('Trykk enter for å ta referansebilde...')
 
 camera.capture('ref_img.png')
 
-# kampA.lagre_referanse_bilde(fil_plassering='./temp_img.png')
-
 while True:
     input('Trykk enter for å ta oppdateringsbilde...')
-
+    print('Tar nytt bilde og genererer heatmap')
     camera.capture('temp_img.png')
 
     uslitt = img_avg_block('./ref_img.png')
@@ -141,20 +143,14 @@ while True:
 
     for i in range(len(slitt)):
         for j in range(len(slitt[0])):
-            diff_img[i][j] = slitt[i][j] - uslitt[i][j]
+            diff_img[i][j] = round((slitt[i][j] - uslitt[i][j])*0.5) + 127
 
-    plt.imsave('temp_diff_img.png', diff_img, interpolation=interpolasjon_metoder[16], cmap=cm.jet_r) # sinc blur metode
+    plt.imshow(diff_img, interpolation=interpolasjon_metoder[16], cmap=cm.jet_r) # sinc blur metode
+    plt.axis('off')
+    plt.savefig('./temp_diff_img.png')
 
     kampA.lagre_bilde(fil_plassering='./temp_diff_img.png')
 
     print('Nytt heatmap lastet opp')
 
     sleep(2)
-# hente temp og luftfuktighet
-# sensorA = BaneSensor(bane_navn='Rink A')
-# sensorA.oppdater_sensordata(temperatur=20, luftfuktighet=17)
-
-
-# kamp_id = kampA.hent_kamp_id()
-
-# print(kamp_id)
