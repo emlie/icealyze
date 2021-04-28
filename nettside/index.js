@@ -1,13 +1,13 @@
-const app = require('express')()
+const express = require('express');
+
+const app = express();
+
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const bodyParser = require('body-parser')
 const Bane = require('./Bane')
 const port = 3000
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
@@ -18,8 +18,24 @@ io.on('connection', async (socket) => {
   var BaneA = new Bane(bane_navn='Rink A')
   await BaneA.init()
 
+  BaneA.nytt_bilde((nytt_bilde) => {
+    socket.emit('nytt bilde', {bilde: nytt_bilde.iskvalitet_bilde})
+  });
+
   BaneA.bilde_stream((nytt_bilde) => {
     socket.emit('nytt bilde', {bilde: nytt_bilde.iskvalitet_bilde})
+  })
+
+  BaneA.status_stream((ny_status) => {
+    socket.emit('status', ny_status)
+  })
+
+  BaneA.status_stream((ny_status) => {
+    socket.emit('kamp status', ny_status)
+  })
+
+  BaneA.hent_kamp_status((ny_status) => {
+    socket.emit('kamp status', ny_status)
   })
 
   socket.on('kamp start', async (respons) => {

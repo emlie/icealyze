@@ -1,73 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<link rel="stylesheet" href="style.css">
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
+<script src="helpers/encode.js"></script>
+<script>var socket = io();</script>
 
-  window.onload = main;
-
-  function encode (input) {
-    var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    var output = "";
-    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-    var i = 0;
-
-    while (i < input.length) {
-        chr1 = input[i++];
-        chr2 = i < input.length ? input[i++] : Number.NaN; // Not sure if the index 
-        chr3 = i < input.length ? input[i++] : Number.NaN; // checks are needed here
-
-        enc1 = chr1 >> 2;
-        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-        enc4 = chr3 & 63;
-
-        if (isNaN(chr2)) {
-            enc3 = enc4 = 64;
-        } else if (isNaN(chr3)) {
-            enc4 = 64;
-        }
-        output += keyStr.charAt(enc1) + keyStr.charAt(enc2) +
-                  keyStr.charAt(enc3) + keyStr.charAt(enc4);
-    }
-    return output;
-}
-
-  function main() {
-    var startKnapp = document.getElementById('start');
-    var avsluttKnapp = document.getElementById('avslutt');
-    startKnapp.onclick = (e) => {
-        var respond = {
-            overkjor_kamp: true
-        }
-        socket.emit('kamp start', respond);
-    }
-
-    avsluttKnapp.onclick = (e) => {
-        var respond = {
-
-        }
-        socket.emit('kamp avslutt', respond);
-    }
-
-    socket.on('nytt bilde', (res) => {
-        console.log(res);
-        var bytes = new Uint8Array(res.bilde);
-
-        var image = document.getElementById('img');
-        image.src = 'data:image/png;base64,'+encode(bytes);
-    })
-  }
-</script>
 <body>
-    <button id="start">Start en ny kamp</button>
-    <button id="avslutt">Avslutt kampen</button>
-    <img id="img" />
+
+    <header>
+        <a href="#">icealyze</a>
+        
+        <div class="selectdiv">
+            <select id="selectRink" class="" name="">
+                <option value="0">Choose Rink</option>
+            </select>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i>home</a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-bar"></i>analytics</a></li>
+            <li><a href="info.html"><i class="fas fa-info-circle"></i>information</a></li>
+            <li><a href="help.html"><i class="fas fa-question-circle"></i>help center</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="h1">
+            <h1>overview</h1>
+            <!-- Midlertidig knapper og data -->
+            <h2>Kampnavn: <span id="kamp_navn"></span></h2></span>
+            
+            <span id="test_status"></span><br/>
+            
+            <input type="text" placeholder="Navn på kamp" /> <!--Brukes foreløpig ikke-->
+            <button id="btnStart" >Start kamp</button>
+            <button id="btnAvslutt" >Avslutt kamp</button>
+        </div>
+
+        <div class="date">
+            <i class="fas fa-calendar-day"></i><span id="thisDate">Feb 28, 2021</span>
+        </div>
+
+        <div class="small-card start-23">
+            <div class="small-card-text">
+                <div class="">
+                    <h3>avg. temperature</h3>
+                </div>
+                <div class="">
+                    <p id="avgTemp" class="big-data"><span id="dataTemperatur"></span>°c</p>
+                    <p class="big-data-caption"><span class="negative">1.3%<span><i
+                                    class="fas fa-arrow-down negative"></i> than last session</p>
+                </div>
+            </div>
+            <div class="small-card-graph">
+                <!-- graph -->
+                <img src="img/graph-green.svg" alt="placeholder">
+            </div>
+        </div>
+
+        <div class="small-card start-25">
+            <div class="small-card-text">
+                <div class="">
+                    <h3>avg. humidity</h3>
+                </div>
+                <div class="">
+                    <p id="avgHumidity" class="big-data"><span id="dataLuftfuktighet" ></span>%</p>
+                    <p class="big-data-caption"><span class="positive">1.3%<span><i
+                                    class="fas fa-arrow-up positive"></i> than last session</p>
+                </div>
+            </div>
+            <div class="small-card-graph">
+                <!-- graph -->
+                <img src="img/graph-blue.svg" alt="placeholder">
+            </div>
+        </div>
+
+        <div class="small-card start-27">
+            <div class="small-card-text">
+                <div class="">
+                    <h3>overall quality</h3>
+                </div>
+                <div class="">
+                    <p id="avgQuality" class="big-data">Z/6</p>
+                    <p class="big-data-caption"><span class="negative">1.3%<span><i
+                                    class="fas fa-arrow-down negative"></i> than last session</p>
+                </div>
+            </div>
+            <div class="small-card-graph">
+                <!-- graph -->
+                <img src="img/graph-yellow.svg" alt="placeholder">
+            </div>
+        </div>
+
+        <div class="full-card start-31">
+            <div class="h2">
+                <h2 id="rinkNameH2">rink unknown</h2>
+            </div>
+            <div class="rink-menu">
+                <!-- insert legend checkboxes -->
+            </div>
+            <div class="rink">
+                <img src="img/house.svg" alt="house">
+                <img id="imgHeatmap" style="flex-grow: 0.5;" >
+                <img src="img/house.svg" alt="house">
+            </div>
+        </div>
+
+        <div class="small-medium-card start-71">
+            <div class="h2">
+                <h2>legend</h2>
+            </div>
+            <div class="legend">
+                <!-- insert legend color codes -->
+            </div>
+        </div>
+
+    </main>
+
 </body>
+<script src="./serverService.js"></script>
+
 </html>
