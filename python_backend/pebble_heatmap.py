@@ -41,17 +41,46 @@ def img_avg_block(name):
             color_avg[i][j] = color_calc
     return color_avg
 
-# uslitt = img_avg_block('./hall_slitt.png')
-# slitt = img_avg_block('./hall_uslitt.png')
+slitt = img_avg_block('./i_lyset_kostet_4.png')
+uslitt = img_avg_block('./nye_pebbles_i_lyset.png')
 
-# diff_img = np.zeros(shape=(len(uslitt), len(uslitt[0])))
+diff_img = np.zeros(shape=(len(uslitt), len(uslitt[0])))
 
+minV = 9999
+maxV = -9999
+
+max_threshold = 50
+min_threshold = -100
+
+for i in range(len(slitt)):
+    for j in range(len(slitt[0])):
+        diff_img[i][j] = slitt[i][j] - uslitt[i][j]
+        if diff_img[i][j] < min_threshold or diff_img[i][j] > max_threshold:
+            diff_img[i][j] = 0
+            
+        if diff_img[i][j] < minV:
+            minV = diff_img[i][j]
+        if diff_img[i][j] > maxV:
+            maxV = diff_img[i][j]
+
+print(f'max: {maxV}, min: {minV}')
+
+# nyMinV = 9999
+# nyMaxV = -9999
+
+# # normalisere til minimnum 0
 # for i in range(len(slitt)):
 #     for j in range(len(slitt[0])):
-#         diff_img[i][j] = slitt[i][j] - uslitt[i][j]
+#         diff_img[i][j] = diff_img[i][j] - minV
+#         if diff_img[i][j] < nyMinV:
+#             nyMinV = diff_img[i][j]
+#         if diff_img[i][j] > nyMaxV:
+#             nyMaxV = diff_img[i][j]
 
-# # # vise bilde
-# # plt.imshow(diff_img, interpolation=interpolasjon_metoder[16], cmap=cm.jet_r) # sinc blur metode
+# print(f'max: {nyMaxV}, min: {nyMinV}')
+
+# # vise bilde
 # plt.imshow(diff_img, interpolation=interpolasjon_metoder[16], cmap=cm.jet_r) # sinc blur metode
-# # plt.imshow(diff_img)
-# plt.show()
+plt.imshow(diff_img, interpolation=interpolasjon_metoder[16], cmap=cm.jet) # sinc blur metode
+# plt.imshow(diff_img)
+plt.show()
