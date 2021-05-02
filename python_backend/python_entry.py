@@ -118,7 +118,6 @@ def img_avg_block(name):
             for x in range(block_size):
                 for y in range(block_size):
                     color_calc += im[i*block_size + x][j*block_size + y][0] # siste index er for fargen rød
-            color_calc = color_calc/(block_size**2)
             color_avg[i][j] = color_calc
     return color_avg
 
